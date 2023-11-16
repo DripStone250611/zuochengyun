@@ -39,16 +39,24 @@ public class Experiment {
         double[] wealth = new double[n];
         Arrays.fill(wealth, 100);
         Random random = new Random();
+        boolean[] hasMoney = new boolean[n];
         // 进行t轮实验
         for(int i = 0; i < t; i++){
+            Arrays.fill(hasMoney, false);
             for(int j = 0; j < wealth.length; j++){
-                int to = j;
-                do{
-                    to = random.nextInt(wealth.length);
-                } while (to == j);
-                if(wealth[j] > -100){
-                    wealth[j]--;
-                    wealth[to]++;
+                if(wealth[j] > 0){
+                    hasMoney[i] = true;
+                }
+            }
+            for(int j = 0; j < wealth.length; j++){
+                if(hasMoney[j]){
+                    int to = j;
+                    do{
+                        to = random.nextInt(wealth.length);
+                    } while (to == j);
+
+                        wealth[j]--;
+                        wealth[to]++;
                 }
             }
         }
